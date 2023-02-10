@@ -12,12 +12,12 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Nucleo Icons -->
-    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
-    <link href="./assets/css/soft-ui-dashboard-tailwind.css?v=1.0.4" rel="stylesheet" />
+    <link href="assets/css/soft-ui-dashboard-tailwind.css?v=1.0.4" rel="stylesheet" />
 
     @vite('resources/css/app.css')
 
@@ -157,7 +157,7 @@
 
     <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
         <!-- Navbar -->
-        <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
+        <nav class="relative flex flex-row items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
             <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
                 <nav>
                     <!-- breadcrumb -->
@@ -167,14 +167,19 @@
                         </li>
                         <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Dashboard</li>
                     </ol>
-                    <h6 class="mb-0 font-bold capitalize">Dashboard</h6>
+                    <h6 class="mb-8 font-bold capitalize">Dashboard</h6>
+                    <button class="py-2 px-5 bg-orange hover:bg-opacity-80 transition duration-300 rounded-[10px] font-bold text-slate-800 hover:text-white text-sm hover:scale-102 hover:shadow-soft-xs active:opacity-85">
+                        <a href="/create"> CREATE</a>
+                    </button>
                 </nav>
+
             </div>
         </nav>
 
+
         <!-- end Navbar -->
 
-        <div class="w-full px-6 py-6 mx-auto">
+        <div class="w-full px-6 py-2 mx-auto">
             <!-- table 1 -->
 
             <div class="flex flex-wrap -mx-3">
@@ -210,14 +215,15 @@
 
     </main>
 
+
 </body>
 <!-- plugin for charts  -->
-<script src="./assets/js/plugins/chartjs.min.js" async></script>
+<script src="assets/js/plugins/chartjs.min.js" async></script>
 <!-- plugin for scrollbar  -->
-<script src="./assets/js/plugins/perfect-scrollbar.min.js" async></script>
+<script src="assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <!-- github button -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- main script file  -->
-<script src="./assets/js/soft-ui-dashboard-tailwind.js?v=1.0.4" async></script>
+<script src="assets/js/soft-ui-dashboard-tailwind.js?v=1.0.4" async></script>
 
 </html>
