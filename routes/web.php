@@ -26,13 +26,17 @@ Route::get('/admin', function () {
 });
 
 Route::get('/table', function () {
-    return view('admin.room');
+    return view('admin.room.room');
 });
 
 Route::get('/fasility', function () {
-    return view('admin.fasility');
+    return view('admin.facility.fasility');
 });
 
 Route::get('/log', function () {
     return view('admin.log');
+});
+
+Route::get('/create', function () {
+    return view('admin.room.create');
 });
