@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\FacilityController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +41,16 @@ Route::get('/log', function () {
 });
 
 Route::get('/create', function () {
-    return view('admin.room.create');
+    return view('admin.facility.create');
 });
+
+Route::get('/facility/create-new', function() {
+    return view('admin.facility.create');
+});
+
+// Route /facility
+Route::resource('/facility', FacilityController::class)->except('edit');
+Route::get('/facility/{facility:random_str}', [FacilityController::class, 'editEdit'])->name('facility.edit');
+
+// Route /log
+Route::get('/log', [LogController::class, 'index'])->name('log.index');
