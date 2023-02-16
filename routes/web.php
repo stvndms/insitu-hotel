@@ -38,5 +38,9 @@ Route::get('/log', function () {
 });
 
 Route::get('/create', function () {
-    return view('admin.room.create');
+    return view('admin.create');
 });
+
+Route::get('/receptionist', function () {
+    return view('admin.receptionist.dashboard');
+})->name('receptionist.index');
