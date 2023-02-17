@@ -80,7 +80,7 @@ class RoomTypeController extends Controller
     {
         $rules = [
             'room_type' => ['required'],
-            'room_type' => ['required']
+            'description' => ['required']
         ];
         $validatedData = $request->validate($rules);
         RoomType::where('id', $roomType->id)->update($validatedData);
