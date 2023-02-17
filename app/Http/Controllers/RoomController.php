@@ -7,6 +7,7 @@ use App\Helper\Helper;
 use App\Models\Facility;
 
 use App\Models\RoomType;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,7 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::all();
-        return view('admin.room.room');
+        return view('admin.room.room', compact('rooms'));
     }
 
     /**
@@ -46,18 +47,19 @@ class RoomController extends Controller
     {
         $rules = [
             'room_number' => ['required'],
-            'room_type_id' => ['required'],
+            'room_type_id' => ['required'], 
             'facility_id' => ['required'],
             'room_price' => ['required'],
             'room_image' => ['image', 'file', 'max:3024']
         ];
         $validatedData = $request->validate($rules);
+        $validatedData['room_status'] = 'ready';
         $validatedData['random_str'] = Str::random(30);
         $validatedData['room_image'] = $request->file('room_image')->store('public/uploaded-images');
         $validatedData['room_image'] = substr($validatedData['room_image'], 7);
         Room::create($validatedData);
-        Helper::createLog("Data kamar dengan nomor " + $validatedData['room_number'] + " telah berhasil dibuat", "username");
-        return redirect('/room');
+        // Helper::createLog("Data kamar dengan nomor " + $validatedData['room_number'] + " telah berhasil dibuat", "username");
+        return redirect(route('room.index'));
     }
 
     /**
@@ -79,7 +81,9 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        $roomTypes = RoomType::all();
+        $facilities = Facility::all();
+        return view('admin.room.edit', compact('room', 'roomTypes', 'facilities'));
     }
 
     /**
@@ -93,11 +97,12 @@ class RoomController extends Controller
     {
         $rules = [
             'room_number' => ['required'],
-            'room_type' => ['required', Rule::in('regular_twin_bed', 'regular_double_bed')],
+            'room_type_id' => ['required'], 
+            'facility_id' => ['required'],
             'room_price' => ['required'],
             'room_image' => ['image', 'file', 'max:3024']
         ];
-        $validatedData->validate($rules);
+        $validatedData = $request->validate($rules);
         if ($request->file('room_image')) {
             if ($room->room_image) {
                 Storage::delete($room->room_image);
@@ -117,6 +122,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        Room::destroy($room);
+        return redirect(route('room.index'));
     }
 }
