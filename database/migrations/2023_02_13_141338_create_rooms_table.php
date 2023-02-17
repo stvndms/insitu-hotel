@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->integer('room_number')->unique();
             $table->foreignId('facility_id')->constrained('facilities');
-            $table->foreignId('room_type')->constrained('room_types');
+            $table->foreignId('room_type_id')->constrained('room_types');
             $table->integer('room_price');
+            $table->enum('room_status', ['booked', 'check_in', 'check_out', 'ready'])->default('ready');
             $table->string('room_image')->nullable();
             $table->string('random_str')->unique();
             $table->timestamps();
