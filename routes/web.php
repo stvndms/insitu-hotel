@@ -40,3 +40,7 @@ Route::get('/log', function () {
 Route::get('/create', function () {
     return view('admin.room.create');
 });
+
+Route::get('/room', function () {
+    return view('landing.user.room');
+});
