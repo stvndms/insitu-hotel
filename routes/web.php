@@ -43,7 +43,11 @@ Route::get('/log', function () {
 });
 
 Route::get('/create', function () {
-    return view('admin.room.create');
+    return view('admin.create');
+});
+
+Route::get('/facility/create-new', function() {
+    return view('admin.facility.create');
 });
 
 // Route /facility
@@ -60,7 +64,6 @@ Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->nam
 
 // Route /log
 Route::get('/log', [LogController::class, 'index'])->name('log.index');
-
 Route::get('/receptionist', function () {
     return view('admin.receptionist.dashboard');
 })->name('receptionist.index');
