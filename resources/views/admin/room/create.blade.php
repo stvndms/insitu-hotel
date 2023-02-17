@@ -33,6 +33,7 @@
 
                     <div class="flex-auto p-6">
                         <form role="form" action="{{ route('room.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Image</label>
                             <div class="mb-4">
                                 <img class="img-preview w-60 mb-3">
@@ -64,7 +65,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button type="button" class="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-black uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-orange hover:scale-102 hover:shadow-soft-xs active:opacity-85" type="submit">Create</button>
+                                <button class="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-black uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-orange hover:scale-102 hover:shadow-soft-xs active:opacity-85" type="submit">Create</button>
                             </div>
                         </form>
                     </div>

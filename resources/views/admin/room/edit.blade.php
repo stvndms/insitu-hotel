@@ -32,28 +32,41 @@
 
 
                     <div class="flex-auto p-6">
-                        <form role="form" action="{{ route('facility.update', $facility->id) }}" method="POST" enctype="multipart/form-data">
+                        <form role="form" action="{{ route('room.update', $room->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <img class="img-preview w-60 mb-3" src="{{ asset('storage/' . $facility->facility_image) }}">
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Image</label>
                             <div class="mb-4">
-                                <input type="file" class="img-preview text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="facility_image" id="image" onchange="previewImage()" />
+                                <img class="img-preview w-60 mb-3" src="{{ asset('storage/' . $room->room_image) }}">
+                                <input type="file" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="room_image" id="image" onchange="previewImage()" />
                             </div>
-                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Name</label>
+                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Room Type</label>
                             <div class="mb-4">
-                                <input type="text" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Name" name="facility_name" value="{{ $facility->facility_name }}"/>
+                                <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="room_type_id">
+                                    @foreach ($roomTypes as $roomType)
+                                        <option value="{{ $roomType->id }}">{{ $roomType->room_type }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Type</label>
+                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Room Number</label>
                             <div class="mb-4">
-                                <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow>" name="facility_type">
-                                    <option value="room"></option>
-                                    <option value="hotel"></option>
+                                <input type="number" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Room Number" name="room_number" value="{{ $room->room_number }}"/>
+                            </div>
+                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Facility</label>
+                            <div class="mb-4">
+                                <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="facility_id">
+                                    @foreach ($facilities as $facility)
+                                        @if (old('facility_id', $room->facility_id) == $facility->id)
+                                            <option value="{{ $facility->id }}" selected>{{ $facility->facility_name }}</option>    
+                                        @else
+                                            <option value="{{ $facility->id }}">{{ $facility->facility_name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Price</label>
                             <div class="mb-4">
-                                <input type="number" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Price" name="facility_price" value="{{ $facility->facility_price }}"/>
+                                <input type="number" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Price" name="room_price" value="{{ $room->room_price }}"/>
                             </div>
 
                             <div class="text-center">
