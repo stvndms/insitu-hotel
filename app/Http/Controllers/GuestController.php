@@ -113,4 +113,52 @@ class GuestController extends Controller
         Guest::destroy($guest->id);
         // return
     }
+
+    public function indexApi()
+    {
+        $guests = Guest::all();
+        return response()->json(["guest" => $guests], 200);
+    }
+
+    public function createApi(Request $request)
+    {
+        $rules = [
+            'guest_name' => ['required', 'max:255'],
+            'guest_photo' => ['image', 'file', 'max:3024'],
+            'guest_phone' => ['required'],
+            'guest_country' => ['required'],
+            'guest_address' => ['required'],
+            'guest_id_card' => ['image', 'file', 'max:3024']
+        ];
+        $validatedData = $request->validate($rules);
+        Guest::create($validatedData);
+        return response()->json(['guest' => $validatedData], 201);
+    }
+
+    public function updateApi(Request $request, Guest $guest)
+    {
+        $rules = [
+            'guest_name' => ['required', 'max:255'],
+            'guest_photo' => ['image', 'file', 'max:3024'],
+            'guest_phone' => ['required'],
+            'guest_country' => ['required'],
+            'guest_address' => ['required'],
+            'guest_id_card' => ['image', 'file', 'max:3024']
+        ];
+        $validatedData = $request->validate($rules);
+        Guest::where('id', $guest->id)->update($validatedData);
+        return response()->json(['guest' => $validatedData], 200);
+    }
+
+    public function deleteApi(Guest $guest)
+    {
+        Guest::destroy($guest->id);
+        $date = Carbon::now()->toDateTimeString();
+        return response()->json([
+            'message' => 'Data tamu sudah dihapus',
+            'status' => '200',
+            'reason' => 'OK',
+            'timestamp' => $date
+        ], 200);
+    }
 }
