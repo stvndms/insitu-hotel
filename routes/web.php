@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\RoomTypeController;
 
 
 /*
@@ -41,7 +43,7 @@ Route::get('/log', function () {
 });
 
 Route::get('/create', function () {
-    return view('admin.facility.create');
+    return view('admin.create');
 });
 
 Route::get('/facility/create-new', function() {
@@ -50,7 +52,15 @@ Route::get('/facility/create-new', function() {
 
 // Route /facility
 Route::resource('/facility', FacilityController::class)->except('edit');
-Route::get('/facility/{facility:random_str}', [FacilityController::class, 'editEdit'])->name('facility.edit');
+Route::get('/facility/{facility:random_str}/edit', [FacilityController::class, 'editEdit'])->name('facility.edit');
+
+// Route /room-type
+Route::resource('/room-type', RoomTypeController::class)->except('edit');
+Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 'edit'])->name('room-type.edit');
+
+// Route /room
+Route::resource('/room', RoomController::class)->except('edit');
+Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit');
 
 // Route /log
 Route::get('/log', [LogController::class, 'index'])->name('log.index');
