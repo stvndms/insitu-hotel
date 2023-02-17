@@ -95,6 +95,7 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
-        //
+        RoomType::destroy($roomType->id);
+        return redirect(route('room-type.index'));
     }
 }
