@@ -52,7 +52,7 @@
                                 @foreach ($rooms as $room)
                                     <tr>
                                         <td class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            {{ $room->room_image }}
+                                            <img src="{{ asset('storage/' . $room->room_image) }}" alt="Picture of {{ $room->room_number }}" class="w-20 mb-3"></a>
                                         </td>
                                         <td class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             {{ $room->roomType->room_type }}
