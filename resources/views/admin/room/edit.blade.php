@@ -44,7 +44,11 @@
                             <div class="mb-4">
                                 <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="room_type_id">
                                     @foreach ($roomTypes as $roomType)
-                                        <option value="{{ $roomType->id }}">{{ $roomType->room_type }}</option>
+                                        @if (old('room_type_id', $room->room_type_id) == $roomType->id)
+                                            <option value="{{ $roomType->id }}" selected>{{ $roomType->room_type }}</option>    
+                                        @else
+                                            <option value="{{ $roomType->id }}">{{ $roomType->room_type }}</option>    
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
