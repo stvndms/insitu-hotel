@@ -53,7 +53,7 @@ class FacilityController extends Controller
         $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
         Facility::create($validatedData);
         Helper::createLog("fafafaf", "gaga");
-        return redirect('/facility');
+        return redirect(route('facility.index'));
     }
 
     /**
@@ -103,7 +103,7 @@ class FacilityController extends Controller
             $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
         }
         Facility::where('id', $facility->id)->update($validatedData);
-        return redirect('/facility');
+        return redirect(route('facility.index'));
     }
 
     /**
@@ -115,11 +115,6 @@ class FacilityController extends Controller
     public function destroy(Facility $facility)
     {
         Facility::destroy($facility->id);
-        // return
-    }
-
-    public function editEdit(Facility $facility)
-    {
-        return view('admin.facility.edit', compact('facility'));
+        return redirect(route('facility.index'));
     }
 }
