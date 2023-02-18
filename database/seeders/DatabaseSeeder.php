@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->create();
+        
+        User::create([
+            'name' => 'Ridho',
+            'email' => 'ridho@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -23,6 +32,26 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             RoomTypeSeeder::class,
+        ]);
+        
+        User::create([
+            'name' => 'Fadhill',
+            'email' => 'fadhiil@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'receptionist',
+        ]);
+
+        User::create([
+            'name' => 'Steven',
+            'email' => 'steven@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'superAdmin',
+        ]);
+        User::create([
+            'name' => 'Nova',
+            'email' => 'nova@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'guest',
         ]);
     }
 }
