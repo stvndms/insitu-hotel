@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->string('history_name');
-            $table->string('username');
+            $table->foreignId('user_id')->constained('user');
             $table->timestamps();
         });
     }
