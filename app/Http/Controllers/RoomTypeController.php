@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Helper;
 use App\Models\RoomType;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class RoomTypeController extends Controller
         $validatedData = $request->validate($rules);
         $validatedData['random_str'] = Str::random(30);
         RoomType::create($validatedData);
+        Helper::createLog("Create a new Room Type : " . $validatedData['room_type']);
         return redirect(route('room-type.index'));
     }
 
@@ -84,6 +86,7 @@ class RoomTypeController extends Controller
         ];
         $validatedData = $request->validate($rules);
         RoomType::where('id', $roomType->id)->update($validatedData);
+        Helper::createLog("Update Room Type : " . $roomType->room_type . " to : " . $validatedData['room_type']);
         return redirect(route('room-type.index'));
     }
 
@@ -95,7 +98,9 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
+        $oldRoomType = $roomType->room_type;
         RoomType::destroy($roomType->id);
+        Helper::createLog("Delete Room Type : " . $oldRoomType);
         return redirect(route('room-type.index'));
     }
 }

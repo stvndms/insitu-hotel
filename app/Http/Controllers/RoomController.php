@@ -58,7 +58,7 @@ class RoomController extends Controller
         $validatedData['room_image'] = $request->file('room_image')->store('public/uploaded-images');
         $validatedData['room_image'] = substr($validatedData['room_image'], 7);
         Room::create($validatedData);
-        // Helper::createLog("Data kamar dengan nomor " + $validatedData['room_number'] + " telah berhasil dibuat", "username");
+        Helper::createLog("Create a new Room : " . $validatedData['room_type']);
         return redirect(route('room.index'));
     }
 
@@ -111,6 +111,7 @@ class RoomController extends Controller
             $validatedData['room_image'] = substr($validatedData['room_image'], 7);
         }
         Room::where('id', $room->id)->update($validatedData);
+        Helper::createLog("Update Room : " . $room->room_number . " to : " . $validatedData['room_number']);
         return redirect(route('room.index'));
     }
 
@@ -122,7 +123,9 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
+        $oldRoom = $room->room_number;
         Room::destroy($room);
+        Helper::createLog("Delete Room : " . $oldRoom);
         return redirect(route('room.index'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
+            Helper::createLog("User Login");
             return redirect('dashboard');
         }
 
@@ -31,12 +32,10 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        Helper::createLog("User Logout");
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
 }

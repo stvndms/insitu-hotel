@@ -52,7 +52,7 @@ class FacilityController extends Controller
         $validatedData['facility_image'] = $request->file('facility_image')->store('public/uploaded-images');
         $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
         Facility::create($validatedData);
-        Helper::createLog("fafafaf", "gaga");
+        Helper::createLog("Create a new Facility : " . $validatedData['facility_name']);
         return redirect(route('facility.index'));
     }
 
@@ -103,6 +103,7 @@ class FacilityController extends Controller
             $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
         }
         Facility::where('id', $facility->id)->update($validatedData);
+        Helper::createLog("Update Facility : " . $facility->facility_image . " to : " . $validatedData['facility_name']);
         return redirect(route('facility.index'));
     }
 
@@ -114,7 +115,9 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
+        $oldFacility = $facility_facility_name;
         Facility::destroy($facility->id);
+        Helper::createLog("Delete Facility : " . $oldFacility);
         return redirect(route('facility.index'));
     }
 }
