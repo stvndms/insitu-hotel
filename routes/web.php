@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsSuperAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\FacilityController;
-use App\Http\Controllers\RoomTypeController;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -30,10 +32,6 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/login', function () {
-    return view('login.index');
-});
-
 //route register
 Route::get('/register', [RegisterController::class, 'register'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->name('store')->middleware('guest');
@@ -41,44 +39,20 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store')->m
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-
-Route::get('/table', function () {
-    return view('admin.room.room');
-});
-
-Route::get('/fasility', function () {
-    return view('admin.facility.fasility');
-});
-
-Route::get('/log', function () {
-    return view('admin.log');
-});
-
-Route::get('/create', function () {
-    return view('admin.create');
-});
-
-Route::get('/facility/create-new', function() {
-    return view('admin.facility.create');
-});
-
 // Route /facility
-Route::resource('/facility', FacilityController::class)->except('edit');
-Route::get('/facility/{facility:random_str}/edit', [FacilityController::class, 'editEdit'])->name('facility.edit');
+Route::resource('/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin')->except('edit');
+Route::get('/facility/{facility:random_str}/edit', [FacilityController::class, 'edit'])->middleware('hasRole:admin,superAdmin')->name('facility.edit');
 
 // Route /room-type
-Route::resource('/room-type', RoomTypeController::class)->except('edit');
-Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 'edit'])->name('room-type.edit');
+Route::resource('/room-type', RoomTypeController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
+Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 'edit'])->name('room-type.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /room
-Route::resource('/room', RoomController::class)->except('edit');
-Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit');
+Route::resource('/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
+Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /log
-Route::get('/log', [LogController::class, 'index'])->name('log.index');
+Route::get('/log', [LogController::class, 'index'])->name('log.index')->middleware('hasRole:superAdmin');
 Route::get('/receptionist', function () {
     return view('admin.receptionist.dashboard');
 })->name('receptionist.index');
