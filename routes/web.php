@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoomController;
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RegisterController;
@@ -50,6 +51,10 @@ Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 
 // Route /room
 Route::resource('/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
 Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit')->middleware('hasRole:admin,superAdmin');
+
+// Route /user
+Route::resource('/user', UserController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
+Route::get('/user/{user:random_str}/edit', [UserController::class, 'edit'])->name('user.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /log
 Route::get('/log', [LogController::class, 'index'])->name('log.index')->middleware('hasRole:superAdmin');
