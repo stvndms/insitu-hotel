@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GuestController;
 
 
@@ -22,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/guest', [GuestController::class, 'indexApi']);
 Route::post('/guest', [GuestController::class, 'createApi']);
+
+Route::post('/room-api', [RoomController::class, 'createApi']);
+Route::get('/room-api', [RoomController::class, 'getApi']);
