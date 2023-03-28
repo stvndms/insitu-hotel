@@ -18,17 +18,19 @@
         <div class="container 2xl:w-[500px] 2xl:h-[650px] lg:w-[450px] lg:h-[520px] md:w-[400px] md:h-[500px] w-[300px] h-[420px] bg-white/30 backdrop-blur-sm rounded-[10px] shadow-md 2xl:py-14 py-8 px-10 border-[1px] border-white">
             <h2 class="font-semibold md:text-lg 2xl:text-xl text-sm block text-center">Welcome Back!</h2>
             <p class="text-[13px] 2xl:text-[14px] font-medium text-grey md:mt-2 mt-1 block text-center 2xl:mb-20 lg:mb-15 mb-10">Please Enter Your Details</p>
-            
+
             <form action="/login" method="POST" autocomplete="off"> @csrf
                 <label class="block  2xl:mb-5 md:mb-3 mb-2 font-medium md:text-[15px] 2xl:text-[16px] text-xs">Email</label>
                 <input type="email" name="email" id="email" placeholder="Enter your Email address" class="form-control w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[25px] text-[10px] md:text-sm bg-white/50 mb-5 px-5 backdrop-blur-sm border-[1px] border-white md:rounded-[10px] rounded-[5px]" autofocus required>
-                
+
                 <label class="block 2xl:mb-5 md:mb-3 mb-2 font-medium md:text-[15px] text-xs">Password</label>
                 <div class="relative">
-                    <input type="password" name="password" placeholder="Enter your Password" class="form-control w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[25px] md:rounded-[10px] rounded-[5px] text-[10px] md:text-sm bg-white/50 px-5 backdrop-blur-sm border-[1px] border-white"  required>
+                    <input type="password" name="password" placeholder="Enter your Password" class="form-control w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[25px] md:rounded-[10px] rounded-[5px] text-[10px] md:text-sm bg-white/50 px-5 backdrop-blur-sm border-[1px] border-white" required id="password">
+
+                    <input type="checkbox" onclick="showPassword()" class="2xl:w-5 2xl:h-5 lg:w-4 lg:h-4 w-3 h-3 absolute top-1/2 -translate-y-1/2 right-3 z-20">
                     <img class="2xl:w-5 2xl:h-5 lg:w-4 lg:h-4 w-3 h-3 absolute top-1/2 -translate-y-1/2 right-3" src="assets/image/eye.svg" alt="">
                 </div>
-            
+
             <div class="mt-5 flex justify-between">
                 <div class="flex justify-center items-center">
                     <input class="md:h-5 md:w-5 h-3 w-3 md:rounded-[5px] rounded-[2px] border-[1px] border-dark" type="checkbox" name="" id="">
@@ -51,5 +53,16 @@
     </div>
     <!-- Login Form End -->
 </body>
+
+<script>
+    function showPassword() {
+        const password = document.getElementById("password");
+        if (password.type === 'password') {
+            password.type = 'text';
+        } else {
+            password.type = 'password';
+        }
+    }
+</script>
 
 </html>
