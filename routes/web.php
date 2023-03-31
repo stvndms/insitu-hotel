@@ -38,7 +38,7 @@ Route::get('/register', [RegisterController::class, 'register'])->middleware('gu
 Route::post('/register', [RegisterController::class, 'store'])->name('store')->middleware('guest');
 
 // Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Route /facility
 Route::resource('/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin')->except('edit');

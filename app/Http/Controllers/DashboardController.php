@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         if (Auth::user()->role === 'admin') {
             $title = 'Administrator Dashboard';
-            return view('layouts.admin.index', compact('title'));
+            return view('admin.userManagement.userManagement', compact('title'));
 
         } elseif (Auth::user()->role === 'receptionist') {
             $title = 'Receptionist Dashboard';
