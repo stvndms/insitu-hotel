@@ -49,8 +49,7 @@ class FacilityController extends Controller
         ];
         $validatedData = $request->validate($rules);
         $validatedData['random_str'] = Str::random(30);
-        $validatedData['facility_image'] = $request->file('facility_image')->store('public/uploaded-images');
-        $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
+        $validatedData['facility_image'] = $request->file('facility_image')->store('uploaded-images');
         Facility::create($validatedData);
         Helper::createLog("Create a new Facility : " . $validatedData['facility_name']);
         return redirect(route('facility.index'));
@@ -65,7 +64,7 @@ class FacilityController extends Controller
     public function show(Facility $facility)
     {
         $data = Facility::where('id', $facility->id)->get();
-        // 
+        //
     }
 
     /**
@@ -99,8 +98,7 @@ class FacilityController extends Controller
             if ($facility->facility_image) {
                 Storage::delete($facility->facility_image);
             }
-            $validatedData['facility_image'] = $request->file('facility_image')->store('public/uploaded-images');
-            $validatedData['facility_image'] = substr($validatedData['facility_image'], 7);
+            $validatedData['facility_image'] = $request->file('facility_image')->store('uploaded-images');
         }
         Facility::where('id', $facility->id)->update($validatedData);
         Helper::createLog("Update Facility : " . $facility->facility_image . " to : " . $validatedData['facility_name']);
@@ -115,7 +113,7 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
-        $oldFacility = $facility_facility_name;
+        $oldFacility = $facility->facility_name;
         Facility::destroy($facility->id);
         Helper::createLog("Delete Facility : " . $oldFacility);
         return redirect(route('facility.index'));

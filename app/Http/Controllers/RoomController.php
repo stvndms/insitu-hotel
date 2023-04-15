@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -31,7 +32,7 @@ class RoomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {       
+    {
         $roomTypes = RoomType::all();
         $facilities = Facility::all();
         return view('admin.room.create', compact('roomTypes', 'facilities'));
@@ -47,7 +48,7 @@ class RoomController extends Controller
     {
         $rules = [
             'room_number' => ['required'],
-            'room_type_id' => ['required'], 
+            'room_type_id' => ['required'],
             'facility_id' => ['required'],
             'room_price' => ['required'],
             'room_image' => ['image', 'file', 'max:3024']
@@ -55,10 +56,9 @@ class RoomController extends Controller
         $validatedData = $request->validate($rules);
         $validatedData['room_status'] = 'ready';
         $validatedData['random_str'] = Str::random(30);
-        $validatedData['room_image'] = $request->file('room_image')->store('public/uploaded-images');
-        $validatedData['room_image'] = substr($validatedData['room_image'], 7);
+        $validatedData['room_image'] = $request->file('room_image')->store('uploaded-images');
         Room::create($validatedData);
-        Helper::createLog("Create a new Room : " . $validatedData['room_type']);
+        Helper::createLog("Create a new Room : " . $validatedData['room_number']);
         return redirect(route('room.index'));
     }
 
@@ -97,7 +97,7 @@ class RoomController extends Controller
     {
         $rules = [
             'room_number' => ['required'],
-            'room_type_id' => ['required'], 
+            'room_type_id' => ['required'],
             'facility_id' => ['required'],
             'room_price' => ['required'],
             'room_image' => ['image', 'file', 'max:3024']
@@ -107,8 +107,7 @@ class RoomController extends Controller
             if ($room->room_image) {
                 Storage::delete($room->room_image);
             }
-            $validatedData['room_image'] = $request->file('room_image')->store('public/uploaded-images');
-            $validatedData['room_image'] = substr($validatedData['room_image'], 7);
+            $validatedData['room_image'] = $request->file('room_image')->store('uploaded-images');
         }
         Room::where('id', $room->id)->update($validatedData);
         Helper::createLog("Update Room : " . $room->room_number . " to : " . $validatedData['room_number']);
