@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoomTypeSeeder;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory()->create();
-        
+
         User::create([
             'name' => 'Ridho',
             'email' => 'ridho@gmail.com',
@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoomTypeSeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }
