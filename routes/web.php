@@ -12,6 +12,8 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,3 +63,6 @@ Route::get('/log', [LogController::class, 'index'])->name('log.index')->middlewa
 Route::get('/receptionist', function () {
     return view('admin.receptionist.dashboard');
 })->name('receptionist.index');
+
+// Route /guest (receptionist)
+Route::resource('/guest', GuestController::class);
