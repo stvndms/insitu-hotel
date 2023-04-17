@@ -50,7 +50,7 @@
 
                 <label class="block 2xl:mt-5 md:mt-3 lg:mt-4 mt-5 2xl:mb-5 md:mb-3 mb-2 font-medium md:text-[15px] text-xs">Confirm Password</label>
                 <div class="relative">
-                    <input type="password" name="password" placeholder="Confirm Password" class="form-control @error('password') is-invalid @enderror w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[25px] md:rounded-[10px] rounded-[5px] text-[10px] md:text-sm bg-white/50 px-5 backdrop-blur-sm border-[1px] border-white" required>
+                    <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control @error('password_confirmation') is-invalid @enderror w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[25px] md:rounded-[10px] rounded-[5px] text-[10px] md:text-sm bg-white/50 px-5 backdrop-blur-sm border-[1px] border-white" required>
                     <img class="2xl:w-5 2xl:h-5 lg:w-4 lg:h-4 w-3 h-3 absolute top-1/2 -translate-y-1/2 right-3" src="assets/image/eye.svg" alt="">
                 </div>
             <div class="mt-8">
