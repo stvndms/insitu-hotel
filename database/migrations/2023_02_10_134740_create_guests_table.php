@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            // $table->foreign('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->nullable();
+            $table->boolean('has_account');
             $table->string('guest_name');
             $table->string('guest_photo')->nullable();
             $table->string('guest_phone');

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Guest;
+use App\Models\Country;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class GuestController extends Controller
 {
@@ -15,7 +21,7 @@ class GuestController extends Controller
     public function index()
     {
         $guests = Guest::all();
-        // 
+        return view('receptionist.guest.index', compact('guests'));
     }
 
     /**
@@ -25,7 +31,8 @@ class GuestController extends Controller
      */
     public function create()
     {
-        //
+        $countries = Country::all();
+        return view('receptionist.guest.create', compact('countries'));
     }
 
     /**
@@ -36,19 +43,50 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $validation = [
             'guest_name' => ['required', 'max:255'],
+            'email' => ['required', 'email:dns,rfc', 'unique:users'],
             'guest_photo' => ['image', 'file', 'max:3024'],
             'guest_phone' => ['required'],
             'guest_country' => ['required'],
             'guest_address' => ['required'],
             'guest_id_card' => ['image', 'file', 'max:3024']
         ];
-        $validatedData = $request->validate($rules);
-        $validatedData['guest_photo'] = $request->file('guest_photo')->store('uploaded-images');
-        $validatedData0['guest_id_card'] = $request->file('guest_id_card')->store('uploaded-images');
-        Guest::create($validatedData);
-        // 
+
+        $validatedData = $request->validate($validation);
+
+        $password = Str::random(30);
+        $user = User::create([
+            'name' => $validatedData['guest_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($password),
+            'role' => 'guest',
+            'random_str' => Str::random(30)
+        ]);
+
+        if ($request->file('guest_photo') || $request->file('guest_id_card')) {
+            Guest::create([
+                'user_id' => $user->id,
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_photo' => $request->file('guest_photo')->store('uploaded-images'),
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+                'guest_id_card' => $request->file('guest_id_card')->store('uploaded-images'),
+            ]);
+        } else {
+            Guest::create([
+                'user_id' => $user->id,
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+            ]);
+        }
+
+        return redirect(route('guest.index'))->with('message', 'password : ' . $password);
     }
 
     /**
