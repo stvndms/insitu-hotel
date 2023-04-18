@@ -43,15 +43,15 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store')->m
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Route /facility
-Route::resource('/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin')->except('edit');
+Route::resource('/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin,receptionist')->except('edit');
 Route::get('/facility/{facility:random_str}/edit', [FacilityController::class, 'edit'])->middleware('hasRole:admin,superAdmin')->name('facility.edit');
 
 // Route /room-type
-Route::resource('/room-type', RoomTypeController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
+Route::resource('/room-type', RoomTypeController::class)->except('edit')->middleware('hasRole:admin,superAdmin,receptionist');
 Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 'edit'])->name('room-type.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /room
-Route::resource('/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin');
+Route::resource('/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin,receptionist');
 Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /user
