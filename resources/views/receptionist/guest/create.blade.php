@@ -1,4 +1,4 @@
-@extends('layouts.receptionist.index')
+@extends('layouts.admin.index')
 
 @section('container')
 <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">

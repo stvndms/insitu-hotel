@@ -1,4 +1,4 @@
-@extends('layouts.receptionist.index')
+@extends('layouts.admin.index')
 
 @section('container')
 
