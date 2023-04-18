@@ -65,4 +65,5 @@ Route::get('/receptionist', function () {
 })->name('receptionist.index');
 
 // Route /guest (receptionist)
-Route::resource('/guest', GuestController::class);
+Route::resource('/guest', GuestController::class)->middleware('hasRole:receptionist')->except('edit');
+Route::get('/guest/{guest:random_str}/edit', [GuestController::class, 'edit'])->name('guest.edit');

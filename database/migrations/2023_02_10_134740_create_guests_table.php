@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('guest_country');
             $table->string('guest_address');
             $table->string('guest_id_card')->nullable();
+            $table->string('random_str');
             $table->timestamps();
         });
     }

@@ -74,6 +74,7 @@ class GuestController extends Controller
                 'guest_country' => $validatedData['guest_country'],
                 'guest_address' => $validatedData['guest_address'],
                 'guest_id_card' => $request->file('guest_id_card')->store('uploaded-images'),
+                'random_str' => Str::random(30),
             ]);
         } else {
             Guest::create([
@@ -83,10 +84,11 @@ class GuestController extends Controller
                 'guest_phone' => $validatedData['guest_phone'],
                 'guest_country' => $validatedData['guest_country'],
                 'guest_address' => $validatedData['guest_address'],
+                'random_str' => Str::random(30),
             ]);
         }
 
-        return redirect(route('guest.index'))->with('message', 'password : ' . $password);
+        return redirect(route('guest.index'))->with('message', 'Password : ' . $password);
     }
 
     /**
@@ -109,7 +111,8 @@ class GuestController extends Controller
      */
     public function edit(Guest $guest)
     {
-        //
+        $countries = Country::all();
+        return view('receptionist.guest.update', compact('guest', 'countries'));
     }
 
     /**
@@ -121,23 +124,55 @@ class GuestController extends Controller
      */
     public function update(Request $request, Guest $guest)
     {
-        $rules = [
+        $user = User::where('id', $guest->user_id)->first();
+        $validation = [
             'guest_name' => ['required', 'max:255'],
+            'email' => ['required'],
             'guest_photo' => ['image', 'file', 'max:3024'],
             'guest_phone' => ['required'],
             'guest_country' => ['required'],
             'guest_address' => ['required'],
             'guest_id_card' => ['image', 'file', 'max:3024']
         ];
-        $validatedData = $request->validate($rules);
-        if ($request->file('guest_photo')) {
-            if ($guest->guest_photo) {
-                Storage::delete($guest->guest_photo);
-            }
-            $validatedData['guest_photo'] = $request->file('guest_photo')->store('uploaded-images');
+
+        if ($request->email != $guest->user->email) {
+            $validation['email'] = ['required', 'email:dns,rfc', 'unique:users'];
         }
-        Guest::where('id', $guest->id)->update($validatedData);
-        // return
+
+        $validatedData = $request->validate($validation);
+
+        $password = Str::random(30);
+        $user->update([
+            'name' => $validatedData['guest_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($password),
+            'role' => 'guest',
+            'random_str' => Str::random(30)
+        ]);
+
+        if ($request->file('guest_photo') || $request->file('guest_id_card')) {
+            Storage::delete($guest->guest_photo);
+            Storage::delete($guest->guest_id_card);
+            $guest->update([
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_photo' => $request->file('guest_photo')->store('uploaded-images'),
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+                'guest_id_card' => $request->file('guest_id_card')->store('uploaded-images'),
+            ]);
+        } else {
+            $guest->update([
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+            ]);
+        }
+
+        return redirect(route('guest.index'))->with('message', 'Password : ' . $password);
     }
 
     /**
@@ -149,7 +184,7 @@ class GuestController extends Controller
     public function destroy(Guest $guest)
     {
         Guest::destroy($guest->id);
-        // return
+        return redirect(route('guest.index'))->with('message', 'Guest data has been deleted');
     }
 
     public function indexApi()
