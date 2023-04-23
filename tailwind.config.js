@@ -18,6 +18,7 @@ module.exports = {
       'red': '#EB1D36',
       'blue': '#1363DF',
       'green': '#0CBC87',
+      'gray1': '#F5F5F5',
     },
     fontFamily: {
       'poppins': ['Poppins']

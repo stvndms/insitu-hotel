@@ -44,3 +44,15 @@ Route::get('/create', function () {
 Route::get('/room', function () {
     return view('landing.user.room');
 });
+
+Route::get('/booking', function () {
+    return view('landing.user.booking.index');
+});
+
+Route::get('/mybooking', function () {
+    return view('landing.user.mybooking.index');
+});
+
+Route::get('/profile', function () {
+    return view('landing.user.profile.index');
+});
