@@ -18,11 +18,11 @@ return new class extends Migration
             $table->uuid('reservation_id')->unique();
             $table->foreignId('guest_id')->constrained('guests');
             $table->foreignId('room_id')->constrained('rooms');
-            $table->foreignId('facility_id')->constrained('facilities');
+            $table->foreignId('facility_id')->constrained('facilities')->nullable();
             $table->datetime('reservation_start_date');
             $table->datetime('reservation_end_date');
-            $table->datetime('check_in');
-            $table->datetime('check_out');
+            $table->datetime('check_in')->nullable();
+            $table->datetime('check_out')->nullable();
             $table->timestamps();
         });
     }
