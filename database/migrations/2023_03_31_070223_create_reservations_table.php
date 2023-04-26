@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('guest_id')->constrained('guests');
             $table->foreignId('room_id')->constrained('rooms');
             $table->foreignId('facility_id')->constrained('facilities');
+            $table->datetime('reservation_start_date');
+            $table->datetime('reservation_end_date');
             $table->datetime('check_in');
             $table->datetime('check_out');
             $table->timestamps();
