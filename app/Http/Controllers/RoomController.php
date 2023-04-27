@@ -123,7 +123,7 @@ class RoomController extends Controller
     public function destroy(Room $room)
     {
         $oldRoom = $room->room_number;
-        Room::destroy($room);
+        Room::destroy($room->id);
         Helper::createLog("Delete Room : " . $oldRoom);
         return redirect(route('room.index'));
     }
