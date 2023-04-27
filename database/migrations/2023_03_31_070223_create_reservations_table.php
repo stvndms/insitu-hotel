@@ -23,6 +23,7 @@ return new class extends Migration
             $table->datetime('reservation_end_date');
             $table->datetime('check_in')->nullable();
             $table->datetime('check_out')->nullable();
+            $table->enum('status', ['reserved', 'check_in', 'check_out', 'canceled']);
             $table->timestamps();
         });
     }
