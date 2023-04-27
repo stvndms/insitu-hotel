@@ -67,3 +67,8 @@ Route::get('/receptionist', function () {
 // Route /guest (receptionist)
 Route::resource('/guest', GuestController::class)->middleware('hasRole:receptionist')->except('edit');
 Route::get('/guest/{guest:random_str}/edit', [GuestController::class, 'edit'])->name('guest.edit');
+
+// Route /reservation (receptionist)
+Route::resource('/reservation', ReservationController::class)->except('edit');
+Route::put('/reservation/{reservation:id}/check-in', [ReservationController::class, 'setCheckIn'])->name('reservation.check-in');
+Route::put('/reservation/{reservation:id}/check-out', [ReservationController::class, 'setCheckOut'])->name('reservation.check-out');
