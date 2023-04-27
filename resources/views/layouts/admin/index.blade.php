@@ -62,6 +62,7 @@
                     </a>
                 </li>
 
+                @if (auth()->user()->role == 'receptionist')
                 <li class="mt-0.5 w-full">
                     <a class="@active('guest.*', 'shadow-soft-xl rounded-lg bg-white font-semibold text-slate-700') py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors group" href="{{ route('guest.index') }}">
                         <div class="@active('guest.*', 'bg-orange') group-hover:bg-orange shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
@@ -103,6 +104,7 @@
                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Reservation</span>
                     </a>
                 </li>
+                @endif
 
                 @if (auth()->user()->role != 'receptionist')
                 <li class="mt-0.5 w-full">
