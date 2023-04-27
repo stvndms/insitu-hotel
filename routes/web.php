@@ -72,3 +72,19 @@ Route::get('/guest/{guest:random_str}/edit', [GuestController::class, 'edit'])->
 Route::resource('/reservation', ReservationController::class)->except('edit');
 Route::put('/reservation/{reservation:id}/check-in', [ReservationController::class, 'setCheckIn'])->name('reservation.check-in');
 Route::put('/reservation/{reservation:id}/check-out', [ReservationController::class, 'setCheckOut'])->name('reservation.check-out');
+
+Route::get('/room', function () {
+    return view('landing.user.room');
+});
+
+Route::get('/booking', function () {
+    return view('landing.user.booking.index');
+});
+
+Route::get('/mybooking', function () {
+    return view('landing.user.mybooking.index');
+});
+
+Route::get('/profile', function () {
+    return view('landing.user.profile.index');
+});
