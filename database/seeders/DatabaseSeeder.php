@@ -55,6 +55,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoomTypeSeeder::class,
             CountrySeeder::class,
+            FacilitySeeder::class,
+            RoomSeeder::class,
+            GuestSeeder::class,
         ]);
     }
 }
