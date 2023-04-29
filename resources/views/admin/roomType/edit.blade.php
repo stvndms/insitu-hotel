@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="flex-auto p-6">
-                        <form role="form" action="{{ route('room-type.update', $roomType->id) }}" method="POST">
+                        <form role="form" action="{{ route('room-type.update', $roomType->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Room Type</label>
@@ -41,6 +41,15 @@
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Description</label>
                             <div class="mb-4">
                                 <input type="text" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Decription" name="description" value="{{ $roomType->description }}"/>
+                            </div>
+                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Image</label>
+                            <div class="mb-4">
+                                <img class="img-preview w-60 mb-3" src="{{ asset('storage/' . $roomType->image) }}">
+                                <input type="file" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Image" name="image" id="image" onchange="previewImage()"/>
+                            </div>
+                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Price</label>
+                            <div class="mb-4">
+                                <input type="text" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Price" name="price" value="{{ $roomType->price }}"/>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-black uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-orange hover:scale-102 hover:shadow-soft-xs active:opacity-85">Update</button>
@@ -55,5 +64,5 @@
     </div>
 
 
-</main>    
+</main>
 @endsection

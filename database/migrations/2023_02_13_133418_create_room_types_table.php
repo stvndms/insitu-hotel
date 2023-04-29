@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('room_type');
             $table->string('description');
+            $table->string('image')->nullable();
+            $table->integer('price');
             $table->string('random_str')->unique();
             $table->timestamps();
         });

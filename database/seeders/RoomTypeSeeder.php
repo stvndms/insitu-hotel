@@ -19,13 +19,15 @@ class RoomTypeSeeder extends Seeder
         RoomType::create([
             'room_type' => 'Reguler Twin Bed',
             'description' => 'Kamar dengan dua kasur terpisah untuk dua orang',
-            'random_str' => Str::random(30) 
+            'random_str' => Str::random(30),
+            'price' => 100
         ]);
 
         RoomType::create([
             'room_type' => 'Reguler Double Bed',
             'description' => 'Kamar dengan satu kasur untuk dua orang',
-            'random_str' => Str::random(30) 
+            'random_str' => Str::random(30),
+            'price' => 90
         ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Helper\Helper;
 use App\Models\RoomType;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RoomTypeController extends Controller
 {
@@ -40,10 +41,13 @@ class RoomTypeController extends Controller
     {
         $rules = [
             'room_type' => ['required'],
-            'description' => ['required']
+            'description' => ['required'],
+            'image' => ['image', 'file', 'max:3024'],
+            'price' => ['required']
         ];
         $validatedData = $request->validate($rules);
         $validatedData['random_str'] = Str::random(30);
+        $validatedData['image'] = $request->file('image')->store('uploaded-images');
         RoomType::create($validatedData);
         Helper::createLog("Create a new Room Type : " . $validatedData['room_type']);
         return redirect(route('room-type.index'));
@@ -82,9 +86,17 @@ class RoomTypeController extends Controller
     {
         $rules = [
             'room_type' => ['required'],
-            'description' => ['required']
+            'description' => ['required'],
+            'image' => ['image', 'file', 'max:3024'],
+            'price' => ['required']
         ];
         $validatedData = $request->validate($rules);
+        if ($request->file('image')) {
+            if ($roomType->image) {
+                Storage::delete($roomType->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('uploaded-images');
+        }
         RoomType::where('id', $roomType->id)->update($validatedData);
         Helper::createLog("Update Room Type : " . $roomType->room_type . " to : " . $validatedData['room_type']);
         return redirect(route('room-type.index'));
@@ -99,6 +111,7 @@ class RoomTypeController extends Controller
     public function destroy(RoomType $roomType)
     {
         $oldRoomType = $roomType->room_type;
+        Storage::delete($roomType->image);
         RoomType::destroy($roomType->id);
         Helper::createLog("Delete Room Type : " . $oldRoomType);
         return redirect(route('room-type.index'));
