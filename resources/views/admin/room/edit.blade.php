@@ -9,11 +9,11 @@
                 <!-- breadcrumb -->
                 <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
                     <li class="leading-normal text-sm">
-                        <a class="opacity-50 text-slate-700" href="javascript:;">Pages</a>
+                        <a class="opacity-50 text-slate-700" href="">Pages</a>
                     </li>
-                    <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Facility</li>
+                    <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Room</li>
                 </ol>
-                <h6 class="mb-0 font-bold capitalize">Facility</h6>
+                <h6 class="mb-0 font-bold capitalize">Room</h6>
             </nav>
         </div>
     </nav>
@@ -35,19 +35,14 @@
                         <form role="form" action="{{ route('room.update', $room->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Image</label>
-                            <div class="mb-4">
-                                <img class="img-preview w-60 mb-3" src="{{ asset('storage/' . $room->room_image) }}">
-                                <input type="file" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="room_image" id="image" onchange="previewImage()" />
-                            </div>
                             <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Room Type</label>
                             <div class="mb-4">
                                 <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="room_type_id">
                                     @foreach ($roomTypes as $roomType)
                                         @if (old('room_type_id', $room->room_type_id) == $roomType->id)
-                                            <option value="{{ $roomType->id }}" selected>{{ $roomType->room_type }}</option>    
+                                            <option value="{{ $roomType->id }}" selected>{{ $roomType->room_type }}</option>
                                         @else
-                                            <option value="{{ $roomType->id }}">{{ $roomType->room_type }}</option>    
+                                            <option value="{{ $roomType->id }}">{{ $roomType->room_type }}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -61,16 +56,12 @@
                                 <select class=" text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" name="facility_id">
                                     @foreach ($facilities as $facility)
                                         @if (old('facility_id', $room->facility_id) == $facility->id)
-                                            <option value="{{ $facility->id }}" selected>{{ $facility->facility_name }}</option>    
+                                            <option value="{{ $facility->id }}" selected>{{ $facility->facility_name }}</option>
                                         @else
                                             <option value="{{ $facility->id }}">{{ $facility->facility_name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
-                            </div>
-                            <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Price</label>
-                            <div class="mb-4">
-                                <input type="number" class="text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-orange focus:transition-shadow" placeholder="Price" name="room_price" value="{{ $room->room_price }}"/>
                             </div>
 
                             <div class="text-center">
@@ -86,5 +77,5 @@
     </div>
 
 
-</main>    
+</main>
 @endsection
