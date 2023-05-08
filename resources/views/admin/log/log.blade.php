@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
             <nav>
                 <!-- breadcrumb -->
-                <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+                <ol class="flex flex-wrap pt-1 mr-12 rounded-lg sm:mr-16">
                     <li class="leading-normal text-sm">
                         <a class="opacity-50 text-slate-700" href="javascript:;">Pages</a>
                     </li>

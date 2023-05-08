@@ -13,6 +13,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\GuestPageController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ReservationController;
 
 /*
@@ -26,9 +28,7 @@ use App\Http\Controllers\ReservationController;
 |
 */
 
-Route::get('/', function () {
-    return view('landing.index');
-})->middleware('guest');
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
 //route login
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
@@ -43,7 +43,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('store')->m
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // Route /facility
-Route::resource('/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin,receptionist')->except('edit');
+Route::resource('/dashboard/facility', FacilityController::class)->middleware('hasRole:admin,superAdmin,receptionist')->except('edit');
 Route::get('/facility/{facility:random_str}/edit', [FacilityController::class, 'edit'])->middleware('hasRole:admin,superAdmin')->name('facility.edit');
 
 // Route /room-type
@@ -51,7 +51,7 @@ Route::resource('/room-type', RoomTypeController::class)->except('edit')->middle
 Route::get('/room-type/{roomType:random_str}/edit', [RoomTypeController::class, 'edit'])->name('room-type.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /room
-Route::resource('/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin,receptionist');
+Route::resource('/dashboard/room', RoomController::class)->except('edit')->middleware('hasRole:admin,superAdmin,receptionist');
 Route::get('/room/{room:random_str}/edit', [RoomController::class, 'edit'])->name('room.edit')->middleware('hasRole:admin,superAdmin');
 
 // Route /user
@@ -73,18 +73,28 @@ Route::resource('/reservation', ReservationController::class)->except('edit');
 Route::put('/reservation/{reservation:id}/check-in', [ReservationController::class, 'setCheckIn'])->name('reservation.check-in');
 Route::put('/reservation/{reservation:id}/check-out', [ReservationController::class, 'setCheckOut'])->name('reservation.check-out');
 
-Route::get('/room', function () {
-    return view('landing.user.room');
-});
+Route::get('/room', [LandingPageController::class, 'room'])->name('room');
 
 Route::get('/booking', function () {
     return view('landing.user.booking.index');
 });
 
 Route::get('/mybooking', function () {
-    return view('landing.user.mybooking.index');
-});
+    return view('guest.mybooking');
+})->name('my-booking');
 
 Route::get('/profile', function () {
     return view('landing.user.profile.index');
+})->name('profile');
+
+Route::get('/book', [GuestPageController::class, 'book'])->name('book');
+
+Route::post('/book', [GuestPageController::class, 'storeBook'])->name('storeBook');
+
+Route::get('profile/update/{guest:random_str}', [GuestPageController::class, 'editProfile'])->name('profile.edit');
+
+Route::get('/facility-guest', function () {
+    return view('landing.facility');
 });
+
+Route::put('/profile/update/{guest:random_str}/update', [GuestPageController::class, 'updateProfile'])->name('profile.update');

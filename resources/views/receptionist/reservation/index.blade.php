@@ -70,7 +70,7 @@
                                             {{ $reservation->status }}
                                         </td>
                                         <td class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            {{ $reservation->facility->facility_name }}
+                                            {{ $reservation->facility->facility_name ?? "" }}
                                         </td>
                                         <td class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                             {{ $reservation->reservation_start_date }}

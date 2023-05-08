@@ -141,16 +141,34 @@ class GuestController extends Controller
 
         $validatedData = $request->validate($validation);
 
-        $password = Str::random(30);
         $user->update([
             'name' => $validatedData['guest_name'],
             'email' => $validatedData['email'],
-            'password' => Hash::make($password),
             'role' => 'guest',
             'random_str' => Str::random(30)
         ]);
 
-        if ($request->file('guest_photo') || $request->file('guest_id_card')) {
+        if ($guest->guest_photo) {
+            Storage::delete($guest->guest_photo);
+            $guest->update([
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_photo' => $request->file('guest_photo')->store('uploaded-images'),
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+            ]);
+        } elseif($guest->guest_id_card) {
+            Storage::delete($guest->guest_id_card);
+            $guest->update([
+                'has_account' => 1,
+                'guest_name' => $validatedData['guest_name'],
+                'guest_phone' => $validatedData['guest_phone'],
+                'guest_country' => $validatedData['guest_country'],
+                'guest_address' => $validatedData['guest_address'],
+                'guest_id_card' => $request->file('guest_id_card')->store('uploaded-images'),
+            ]);
+        } elseif($guest->guest_photo && $guest->guest_id_card) {
             Storage::delete($guest->guest_photo);
             Storage::delete($guest->guest_id_card);
             $guest->update([
@@ -172,7 +190,7 @@ class GuestController extends Controller
             ]);
         }
 
-        return redirect(route('guest.index'))->with('message', 'Password : ' . $password);
+        return redirect(route('guest.index'))->with('message', 'Guest data successfully updated');
     }
 
     /**
@@ -184,6 +202,8 @@ class GuestController extends Controller
     public function destroy(Guest $guest)
     {
         Guest::destroy($guest->id);
+        Storage::delete($guest->guest_photo);
+        Storage::delete($guest->guest_id_card);
         return redirect(route('guest.index'))->with('message', 'Guest data has been deleted');
     }
 

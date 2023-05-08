@@ -14,7 +14,7 @@ class LogController extends Controller
      */
     public function index()
     {
-        $logs = Log::all();
+        $logs = Log::latest();
         return view('admin.log.log', compact('logs'));
     }
 
@@ -36,7 +36,7 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**

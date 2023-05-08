@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Facility;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +26,10 @@ class DashboardController extends Controller
 
         } else {
             $title = 'Guest Dashboard';
-            return view('guest.index', compact('title'));
-
+            $roomTypes = RoomType::all();
+            $facilities = Facility::all();
+            $guest = Auth::user()->guest;
+            return view('guest.profile', compact('title', 'roomTypes', 'facilities', 'guest'));
         }
     }
 
