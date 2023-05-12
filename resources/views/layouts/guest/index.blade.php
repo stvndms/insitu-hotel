@@ -38,7 +38,7 @@
                                 <a href="{{ route('room') }}" class="@active('room', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">Room</a>
                             </li>
                             <li class="group">
-                                <a href="" class="@active('', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">Facility</a>
+                                <a href="{{ route('facility') }}" class="@active('facility', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">Facility</a>
                             </li>
                             @if (auth()->user())
                                 <li class="group">

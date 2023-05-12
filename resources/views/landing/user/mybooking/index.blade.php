@@ -143,10 +143,10 @@
                         </label>
                       </div>
 
-                </div>  
+                </div>
                 <div class="w-full border-2 border-orange rounded-md flex items-center justify-center py-3 mt-[-80px] hover:text-white hover:bg-orange text-orange">
                     <button type="submit">Upload Payment Proof</button>
-                </div>               
+                </div>
             </div>
         </div>
     </main>

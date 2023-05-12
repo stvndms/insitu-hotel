@@ -74,6 +74,7 @@ Route::put('/reservation/{reservation:id}/check-in', [ReservationController::cla
 Route::put('/reservation/{reservation:id}/check-out', [ReservationController::class, 'setCheckOut'])->name('reservation.check-out');
 
 Route::get('/room', [LandingPageController::class, 'room'])->name('room');
+Route::get('/facility', [LandingPageController::class, 'facility'])->name('facility');
 
 Route::get('/booking', function () {
     return view('landing.user.booking.index');

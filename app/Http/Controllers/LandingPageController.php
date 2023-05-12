@@ -24,10 +24,13 @@ class LandingPageController extends Controller
         return view('landing.room', compact('roomTypes'));
     }
 
-    // public function facility()
-    // {
-    //     return view();
-    // }
+    public function facility()
+    {
+        $facilities = Facility::all();
+        $count = $facilities->count();
+
+        return view('landing.facility', compact('facilities', 'count'));
+    }
 
 
 }
