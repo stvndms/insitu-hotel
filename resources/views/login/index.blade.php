@@ -43,7 +43,7 @@
             </div>
             <h1 class="block text-center lg:mt-3 md:mt-2 mt-1 2xl:text-base text-[10px] md:text-sm font-normal">or</h1>
             <div>
-                <button class="w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[30px] 2xl:text-base text-[10px] md:text-sm flex justify-center items-center bg-white/50 rounded-[10px] md:mt-2 mt-1 "><img class="mr-3 w-5 md:w-6 2xl:w-7" src="assets/image/g-icon.png">Sign in with Google</button>
+                <a href="{{route('auth.google')}}" class="w-full 2xl:h-[50px] lg:h-[40px] md:h-[35px] h-[30px] 2xl:text-base text-[10px] md:text-sm flex justify-center items-center bg-white/50 rounded-[10px] md:mt-2 mt-1 "><img class="mr-3 w-5 md:w-6 2xl:w-7" src="assets/image/g-icon.png">Sign in with Google</a>
             </div>
             <h1 class="block text-center 2xl:mt-5 lg:mt-3 md:mt-2 mt-1 text-grey 2xl:text-[15px] md:text-[13px] text-[10px]">Don't have an account?<a class="text-dark" href="/register"><span class="underline underline-offset-1">Sign Up </span></a></h1>
         </div>
