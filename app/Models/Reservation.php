@@ -22,6 +22,11 @@ class Reservation extends Model
 
     public function facility()
     {
-        return $this->belongsTo(Facility::class);   
+        return $this->belongsTo(Facility::class);
+    }
+
+    public function bill()
+    {
+        return $this->hasOne(Bill::class);
     }
 }

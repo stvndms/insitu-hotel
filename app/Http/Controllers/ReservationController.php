@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Bill;
 use App\Models\Room;
 use App\Models\Guest;
 use App\Models\Facility;
@@ -58,6 +59,16 @@ class ReservationController extends Controller
         $validatedData['reservation_id'] = Str::uuid();
         $validatedData['status'] = 'reserved';
         Reservation::create($validatedData);
+
+        $reservation = Reservation::latest()->first();
+        $bill = new Bill();
+        $bill->reservation_id = $reservation->id;
+        $bill->tax = '0.10';
+        $bill->room_charge = $reservation->room->roomType->price;
+        $bill->etc_charge = 100;
+        $bill->total_charge = ($bill->room_charge + $bill->etc_charge * $bill->tax) + $bill->room_charge + $bill->etc_charge;
+        $bill->payment_due_date = $reservation->created_at;
+        $bill->save();
 
         // Set Room Status
         Room::where('id', $validatedData['room_id'])->update([

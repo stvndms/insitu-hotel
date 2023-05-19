@@ -80,9 +80,8 @@ Route::get('/booking', function () {
     return view('landing.user.booking.index');
 });
 
-Route::get('/mybooking', function () {
-    return view('guest.mybooking');
-})->name('my-booking');
+Route::get('/mybooking', [GuestPageController::class, 'mybooking'])->name('my-booking');
+Route::get('/mybooking/{reservation:reservation_id}', [GuestPageController::class, 'detailBooking'])->name('my-booking.detail');
 
 Route::get('/profile', function () {
     return view('landing.user.profile.index');
@@ -99,3 +98,6 @@ Route::get('/facility-guest', function () {
 });
 
 Route::put('/profile/update/{guest:random_str}/update', [GuestPageController::class, 'updateProfile'])->name('profile.update');
+
+Route::get('/payment/{reservation:reservation_id}', [GuestPageController::class, 'payment'])->name('payment');
+Route::put('/payment/{bill:invoice_no}/store', [GuestPageController::class, 'storePayment'])->name('payment-store');

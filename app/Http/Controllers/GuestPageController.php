@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Guest;
@@ -11,6 +12,7 @@ use App\Models\RoomType;
 use App\Models\Reservation;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,11 +43,47 @@ class GuestPageController extends Controller
 
         Reservation::create($validatedData);
 
+        $reservation = Reservation::latest()->first();
+        $bill = new Bill();
+        $bill->invoice_no = Str::uuid();
+        $bill->reservation_id = $reservation->id;
+        $bill->tax = 0.1;
+        $bill->room_charge = $reservation->room->roomType->price;
+        $bill->etc_charge = 100;
+        $bill->total_charge = $bill->room_charge + $bill->etc_charge + (($bill->room_charge + $bill->etc_charge) * $bill->tax);
+        $bill->payment_due_date = $reservation->created_at;
+        $bill->status = 'unpaid';
+        $bill->save();
+
         $room->update([
             'room_status' => 'booked'
         ]);
 
-        redirect(route('home'));
+        return redirect(route('payment', $reservation->reservation_id));
+    }
+
+    public function payment(Reservation $reservation)
+    {
+        $bill = Bill::where('reservation_id', $reservation->reservation_id);
+        return view('guest.payment', compact('reservation', 'bill'));
+    }
+
+    public function storePayment(Request $request, Bill $bill)
+    {
+        $rules = [
+            'proof_of_payment' => ['image', 'file', 'max:3024']
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('payment');
+
+        $bill->update([
+            'proof_of_payment' => $validatedData['proof_of_payment'],
+            'status' => 'process'
+        ]);
+
+        return redirect(route('home'));
     }
 
     public function editProfile(Guest $guest)
@@ -88,5 +126,17 @@ class GuestPageController extends Controller
         }
 
         return redirect(route('dashboard'));
+    }
+
+    public function mybooking()
+    {
+        $user = Auth::user();
+        $reservations = Reservation::where('guest_id', $user->guest->id)->get();
+        return view('guest.booking.mybooking', compact('reservations'));
+    }
+
+    public function detailBooking(Reservation $reservation)
+    {
+        return view('guest.booking.detail');
     }
 }
