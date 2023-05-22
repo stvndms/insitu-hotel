@@ -35,7 +35,7 @@
                     <label class="ml-2 font-normal 2xl:text-[14px] md:text-[13px] text-[10px]">Remember me</label>
                 </div>
                 <div>
-                    <a href="" class="font-normal 2xl:text-[14px] md:text-[13px] text-[10px]">Forgot password?</a>
+                    <a href="{{route('password.request')}}" class="font-normal 2xl:text-[14px] md:text-[13px] text-[10px]">Forgot password?</a>
                 </div>
             </div>
             <div class="mt-5 2xl:mt-7">
