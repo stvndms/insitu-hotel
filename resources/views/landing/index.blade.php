@@ -45,9 +45,11 @@
                                 </div>
                             </div>
                             <div class="flex justify-center items-center">
+                                <a href="{{ route('room') }}">
                                     <button class="w-[80px] h-[30px] lg:h-[60px] lg:w-[160px] border-2 border-orange rounded-[5px] lg:rounded-[10px] py-2 lg:mx-0 flex items-center justify-center gap-2 text-orange font-medium text-[8px] lg:text-[12px] hover:bg-orange hover:text-white group">
                                         Check Availability <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange w-3 mr-1 lg:w-4 group-hover:fill-white" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
                                     </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -221,20 +223,22 @@
         <div class="container lg:px-[80px] px-[10px] my-20 mb-40">
             <div class=" items-center justify-between gap-20 mt-[-400px] lg:mt-0 lg:flex">
                 <div class="w-[300px] h-[300px]">
-                    <img class="w-full h-full hidden lg:block rounded-md" src="assets/image/chae.jpg" alt="">
+                    <img class="w-full h-full hidden lg:block rounded-md" src="{{ asset('assets/image/logo.png') }}" alt="">
                 </div>
                 <div class="w-full lg:w-[800px]">
                     <h3 class="font-bold text-4xl mb-10 text-orange">Our Story</h3>
-                    <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur recusandae deleniti tenetur deserunt minima distinctio suscipit architecto excepturi voluptatem eaque.</span>
+                    <span>
+                        Insitu Hotel adalah hotel yang berada di dalam SMK Wikrama Bogor. Kami menyajikan kenyamanan dan keamanan bagi pengunjung yang menginap di hotel kami.
+                    </span>
                 </div>
             </div>
             <div class=" items-center justify-between lg:gap-20 mt-[50px] lg:mt-0 lg:flex">
                 <div class="w-full lg:w-[800px]">
                     <h3 class="font-bold text-4xl mb-10 text-orange">Our Mission</h3>
-                    <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur recusandae deleniti tenetur deserunt minima distinctio suscipit architecto excepturi voluptatem eaque.</span>
+                    <span>Misi kami memberikan kenyamanan dan keamanan bagi para pengunjung kami.<span>
                 </div>
                 <div class="w-[300px] h-[300px] mt-[-300px lg:mt-0]">
-                    <img class="w-full h-full hidden lg:block rounded-md" src="assets/image/chae.jpg" alt="">
+                    <img class="w-full h-full hidden lg:block rounded-md" src="{{ asset('assets/image/logo.png') }}" alt="">
                 </div>
             </div>
         </div>

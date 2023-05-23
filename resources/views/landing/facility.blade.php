@@ -9,7 +9,7 @@
             @foreach ($facilities as $facility)
             <div id="{{ $loop->iteration }}" class="carousel-item relative w-full flex mb-24">
                 <div class="mx-auto self-center">
-                    <img src="assets/image/hero.jpg" class="rounded-lg w-[300px] h-[400px]" />
+                    <img src="{{ asset('storage/' . $facility->facility_image) }}" class="rounded-lg w-[300px] h-[400px]" />
                     <div class="w-full bg-dark bg-opacity-80 h-10 relative -mt-10 rounded-b-lg text-center">
                         <span class="text-white">{{ $facility->facility_name }}</span>
                     </div>

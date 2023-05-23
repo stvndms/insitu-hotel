@@ -32,11 +32,13 @@
                             @case('reserved')
                                 <span class="text-orange">Reserved</span>
                                 @break
-                            @case(2)
-
+                            @case('check_in')
+                                <span>Check In</span>
+                                @break
+                            @case('check_out')
+                                <span>Check Out</span>
                                 @break
                             @default
-
                         @endswitch
                     </div>
                     <div class="flex justify-between py-2">
@@ -45,11 +47,13 @@
                             @case('unpaid')
                                 <span class="text-red">Unpaid</span>
                                 @break
-                            @case(2)
-
+                            @case('process')
+                                <span class="text-orange">Process</span>
+                                @break
+                            @case('paid')
+                                <span class="text-green">Paid</span>
                                 @break
                             @default
-
                         @endswitch
                     </div>
                     <div class="flex justify-between py-2">
@@ -111,9 +115,11 @@
 
             </div>
 
-            <div class="w-full border-2 border-orange rounded-md flex items-center justify-center py-3 mt-[-80px] hover:text-white hover:bg-orange text-orange">
-                <button type="submit">Upload Payment Proof</button>
-            </div>
+            @if ($reservation->bill->status == 'unpaid')
+                <div class="w-full border-2 border-orange rounded-md flex items-center justify-center py-3 mt-[-80px] hover:text-white hover:bg-orange text-orange">
+                    <button type="submit">Upload Payment Proof</button>
+                </div>
+            @endif
 
             </form>
         </div>

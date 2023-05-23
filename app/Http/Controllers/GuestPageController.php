@@ -41,6 +41,10 @@ class GuestPageController extends Controller
         $validatedData['room_id'] = $room->id;
         $validatedData['status'] = 'reserved';
 
+        if ($request->facility_id) {
+            $validatedData['facility_id'] = $request->facility_id;
+        }
+
         Reservation::create($validatedData);
 
         $reservation = Reservation::latest()->first();
@@ -137,6 +141,6 @@ class GuestPageController extends Controller
 
     public function detailBooking(Reservation $reservation)
     {
-        return view('guest.booking.detail');
+        return view('guest.booking.detail', compact('reservation'));
     }
 }

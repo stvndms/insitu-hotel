@@ -19,9 +19,9 @@ return new class extends Migration
             $table->boolean('has_account');
             $table->string('guest_name');
             $table->string('guest_photo')->nullable();
-            $table->string('guest_phone');
-            $table->string('guest_country');
-            $table->string('guest_address');
+            $table->string('guest_phone')->nullable();
+            $table->string('guest_country')->nullable();
+            $table->string('guest_address')->nullable();
             $table->string('guest_id_card')->nullable();
             $table->string('random_str');
             $table->timestamps();

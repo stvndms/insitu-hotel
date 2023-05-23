@@ -28,7 +28,7 @@ use App\Http\Controllers\ReservationController;
 |
 */
 
-Route::get('/', [LandingPageController::class, 'index'])->name('home');
+Route::get('/', [LandingPageController::class, 'index'])->name('home')->middleware('hasRole:guest');
 
 //route login
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
@@ -101,3 +101,5 @@ Route::put('/profile/update/{guest:random_str}/update', [GuestPageController::cl
 
 Route::get('/payment/{reservation:reservation_id}', [GuestPageController::class, 'payment'])->name('payment');
 Route::put('/payment/{bill:invoice_no}/store', [GuestPageController::class, 'storePayment'])->name('payment-store');
+
+Route::put('/setpaid/{reservation:reservation_id}', [ReservationController::class, 'setPaid'])->name('set-paid');

@@ -40,7 +40,7 @@
                                 class="mb-3 block text-base font-medium text-dark">
                                 Facility
                             </label>
-                            <select id="fruit" name="fruit" class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-orange focus:shadow-md">
+                            <select id="facility_id" name="facility_id" class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-orange focus:shadow-md">
                                 <option selected disabled>-- Select Facility --</option>
                                 @foreach ($facilities as $facility)
                                     <option value="{{ $facility->id }}">{{ $facility->facility_name }}</option>

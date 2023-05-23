@@ -11,7 +11,7 @@
                 <div class="bg-white p-3 gap-3 rounded-lg items-center pt-5 mb-10 lg:h-[650px] lg:pt-10 lg:p-10">
                     <div class="grid grid-cols-3 items-center lg:px-[80px] lg:mt-8">
                             <div class="mx-auto">
-                                @if ($guest->guest_photo)
+                                @if ($guest->guest_photo == null)
                                     <img class="rounded-full w-[60px] lg:w-[100px]" src="{{ asset('storage/' . $guest->guest_photo) }}" alt="">
                                 @else
                                     <img class="rounded-full w-[60px] lg:w-[100px]" src="{{ asset('assets/image/blank_profile.png') }}" alt="">

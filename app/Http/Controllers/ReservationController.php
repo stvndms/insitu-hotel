@@ -65,7 +65,10 @@ class ReservationController extends Controller
         $bill->reservation_id = $reservation->id;
         $bill->tax = '0.10';
         $bill->room_charge = $reservation->room->roomType->price;
-        $bill->etc_charge = 100;
+        if ($reservation->facility->facility_price) {
+            $bill->etc_charge = $reservation->facility->facility_price;
+        }
+        $bill->etc_charge = 0;
         $bill->total_charge = ($bill->room_charge + $bill->etc_charge * $bill->tax) + $bill->room_charge + $bill->etc_charge;
         $bill->payment_due_date = $reservation->created_at;
         $bill->save();
@@ -149,5 +152,14 @@ class ReservationController extends Controller
         ]);
 
         return redirect(route('reservation.index'))->with('message', 'Guest reservation has been set to Check Out');
+    }
+
+    public function setPaid(Reservation $reservation)
+    {
+        $reservation->bill->update([
+            'status' => 'paid'
+        ]);
+
+        return redirect(route('reservation.index'))->with('message', 'Guest bill has been set to paid');
     }
 }

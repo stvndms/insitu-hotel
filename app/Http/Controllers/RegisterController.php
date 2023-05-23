@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Guest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +30,14 @@ class RegisterController extends Controller
         $validatedData['role'] = 'guest';
 
         User::create($validatedData);
+        $user = User::latest()->first();
+
+        Guest::create([
+            'user_id' => $user->id,
+            'has_account' => true,
+            'guest_name' => $user->name,
+            'random_str' => Str::random(30)
+        ]);
 
         return redirect('/login')->with('success', 'New Guest has been added!');
     }

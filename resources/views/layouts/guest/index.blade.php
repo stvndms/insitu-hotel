@@ -45,7 +45,7 @@
                                     <a href="{{ route('book') }}" class="@active('book', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">Booking</a>
                                 </li>
                                 <li class="group">
-                                    <a href="{{ route('my-booking') }}" class="@active('my-booking.*', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">My Booking</a>
+                                    <a href="{{ route('my-booking') }}" class="@active('my-booking*', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">My Booking</a>
                                 </li>
                                 <li class="group">
                                     <a href="{{ route('dashboard') }}" class="@active('dashboard', 'text-orange border-b-2 border-orange') text-base font-medium text-dark py-2 mx-8 flex group-hover:text-orange">Profile</a>
